@@ -1,27 +1,10 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Xml;
 using FightSimulator.Classes;
 
 namespace FightSimulator
 {
-    /// <summary>
-    /// Interakční logika pro MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -31,60 +14,45 @@ namespace FightSimulator
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Warrior w1;
-            Warrior w2;
-            
             Dice dice = new Dice();
-            switch (classSelector1.SelectedItem.ToString())
-            {
-                case "System.Windows.Controls.ComboBoxItem: Warrior":
-                    w1 = new Warrior("Warrior", (int)slider_health1.Value, (int)slider_attack1.Value, (int)slider_defense1.Value, dice);
-                    break;
-
-                case "System.Windows.Controls.ComboBoxItem: Wizard":
-                    w1 = new Wizard("Wizard", (int)slider_health1.Value, (int)slider_attack1.Value, (int)slider_defense1.Value, dice, 40, (int)slider_ultimate1.Value);
-                    break;
-                case "System.Windows.Controls.ComboBoxItem: Healer":
-                    w1 = new Healer("Healer", (int)slider_health1.Value, (int)slider_attack1.Value, (int)slider_defense1.Value, dice, 40, (int)slider_ultimate1.Value);
-                    break;
-                default:
-                    w1 = new Warrior("Warrior", (int)slider_health1.Value, (int)slider_attack1.Value, (int)slider_defense1.Value, dice);
-                    break;
-            }
-
-            switch (classSelector2.SelectedItem.ToString())
-            {
-                case "System.Windows.Controls.ComboBoxItem: Warrior":
-                    w2 = new Warrior("Warrior", (int)slider_health2.Value, (int)slider_attack2.Value, (int)slider_defense2.Value, dice);
-                    break;
-
-                case "System.Windows.Controls.ComboBoxItem: Wizard":
-                    w2 = new Wizard("Wizard", (int)slider_health2.Value, (int)slider_attack2.Value, (int)slider_defense2.Value, dice, 40, (int)slider_ultimate2.Value);
-                    break;
-                case "System.Windows.Controls.ComboBoxItem: Healer":
-                    w2 = new Healer("Healer", (int)slider_health2.Value, (int)slider_attack2.Value, (int)slider_defense2.Value, dice, 40, (int)slider_ultimate2.Value);
-                    break;
-                default:
-                    w2 = new Warrior("Warrior", (int)slider_health2.Value, (int)slider_attack2.Value, (int)slider_defense2.Value, dice);
-                    break;
-            }
+            Warrior w1 = CreateWarrior(classSelector1.SelectedItem.ToString(), "Player1", (int)slider_health1.Value, (int)slider_attack1.Value, (int)slider_defense1.Value, (int)slider_ultimate1.Value);
+            Warrior w2 = CreateWarrior(classSelector2.SelectedItem.ToString(), "Player2", (int)slider_health2.Value, (int)slider_attack2.Value, (int)slider_defense2.Value, (int)slider_ultimate2.Value);
 
             Arena arena = new Arena(w1, w2, dice);
 
             arena.Fight();
         }
 
+        private Warrior CreateWarrior(string selector, string name, int health, int attack, int defense, int ultimate)
+        {
+            Warrior w;
+
+            Dice dice = new Dice();
+
+            switch(selector)
+            {
+                case "System.Windows.Controls.ComboBoxItem: Warrior":
+                    w = new Warrior(name, health, attack, defense, dice);
+                    break;
+                case "System.Windows.Controls.ComboBoxItem: Wizard":
+                    w = new Wizard(name, health, attack, defense, dice, 40, ultimate);
+                    break;
+                case "System.Windows.Controls.ComboBoxItem: Healer":
+                    w = new Healer(name, health, attack, defense, dice, 40, ultimate);
+                    break;
+                default:
+                    w = new Warrior(name, health, attack, defense, dice);
+                    break;
+            }
+            return w;
+        }
+
+
         public virtual void CreateFile(string name)
         {
-            if (File.Exists(name))
-            {
-                name += "(1)";
-            }
-
             XmlWriterSettings settings = new XmlWriterSettings
             {
                 Indent = true,
-                ConformanceLevel = ConformanceLevel.Auto
             };
 
             using (XmlWriter xw = XmlWriter.Create($@"{name}", settings))
@@ -134,14 +102,9 @@ namespace FightSimulator
                     int i = 0;
                     while (xr.Read())
                     {
-
                         if (xr.NodeType == XmlNodeType.Element)
                         {
-                            element = xr.Name; // název aktuálního elementu
-                            if (element == "uzivatel")
-                            {
-                                
-                            }
+                            element = xr.Name;
                         }
                         else if (xr.NodeType == XmlNodeType.Text)
                         {
@@ -168,40 +131,11 @@ namespace FightSimulator
                         
                     }
                 }
-                Warrior w1;
-                Warrior w2;
-                Dice dice = new Dice();
-                switch (classes[0])
-                {
-                    case "System.Windows.Controls.ComboBoxItem: Warrior":
-                        w1 = new Warrior("Warrior", health[0], attack[0], defense[0], dice);
-                        break;
-                    case "System.Windows.Controls.ComboBoxItem: Wizard":
-                        w1 = new Wizard("Wizard", health[0], attack[0], defense[0], dice, 40, ultimate[0]);
-                        break;
-                    case "System.Windows.Controls.ComboBoxItem: Healer":
-                        w1 = new Healer("Healer", health[0], attack[0], defense[0], dice, 40, ultimate[0]);
-                        break;
-                    default:
-                        w1 = new Warrior("Warrior", health[0], attack[0], defense[0], dice);
-                        break;
-                }
 
-                switch (classes[1])
-                {
-                    case "System.Windows.Controls.ComboBoxItem: Warrior":
-                        w2 = new Warrior("Warrior", health[1], attack[1], defense[1], dice);
-                        break;
-                    case "System.Windows.Controls.ComboBoxItem: Wizard":
-                        w2 = new Wizard("Wizard", health[1], attack[1], defense[1], dice, 40, ultimate[1]);
-                        break;
-                    case "System.Windows.Controls.ComboBoxItem: Healer":
-                        w2 = new Healer("Healer", health[1], attack[1], defense[1], dice, 40, ultimate[1]);
-                        break;
-                    default:
-                        w2 = new Warrior("Warrior", health[1], attack[1], defense[1], dice);
-                        break;
-                }
+                Dice dice = new Dice();
+
+                Warrior w1 = CreateWarrior(classes[0], "Player1", health[0], attack[0], defense[0], ultimate[0]);
+                Warrior w2 = CreateWarrior(classes[1], "Player2", health[1], attack[1], defense[1], ultimate[1]);
 
                 Arena arena = new Arena(w1, w2, dice);
 

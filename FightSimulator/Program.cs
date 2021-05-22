@@ -9,7 +9,7 @@ namespace FightSimulator
         {
             var app = new App();
             app.InitializeComponent();
-            app.Run();//cc
+            app.Run();
         }
     }
 }
