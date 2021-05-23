@@ -71,6 +71,7 @@
     <Compile Include="Classes\Warrior.cs" />
     <Compile Include="Classes\Wizard.cs" />
     <Compile Include="Dice.cs" />
+    <Compile Include="Item.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
