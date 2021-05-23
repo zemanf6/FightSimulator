@@ -3,15 +3,17 @@ using System.Windows;
 using System.Xml;
 using FightSimulator.Classes;
 using System.Collections.Generic;
+using MahApps.Metro.Controls;
 
 namespace FightSimulator
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         public MainWindow()
         {
             InitializeComponent();
             FillItems();
+            //ShowTitleBar = true;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
