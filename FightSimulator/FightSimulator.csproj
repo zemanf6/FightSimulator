@@ -37,6 +37,9 @@
   <PropertyGroup>
     <StartupObject>FightSimulator.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>swords.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ControlzEx, Version=4.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.4.4.0\lib\net462\ControlzEx.dll</HintPath>
@@ -164,6 +167,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Utilities.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -213,6 +217,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\logo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\swords.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\swords.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="swords.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

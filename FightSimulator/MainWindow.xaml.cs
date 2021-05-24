@@ -4,6 +4,7 @@ using System.Xml;
 using FightSimulator.Classes;
 using System.Collections.Generic;
 using MahApps.Metro.Controls;
+using System.Diagnostics;
 
 namespace FightSimulator
 {
@@ -13,7 +14,6 @@ namespace FightSimulator
         {
             InitializeComponent();
             FillItems();
-            //ShowTitleBar = true;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -186,6 +186,11 @@ namespace FightSimulator
         
             ItemSelector1.SelectedIndex = 0;
             ItemSelector2.SelectedIndex = 0;
+        }
+
+        private void Github_Click(object sender, RoutedEventArgs e)
+        {
+            Utilities.Launch_URL("https://github.com/zemanf6/FightSimulator");
         }
     }
 }

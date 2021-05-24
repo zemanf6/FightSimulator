@@ -10,7 +10,16 @@
         Title="Fight simulator" Height="550" Width="800"
         BorderThickness="0"
         GlowBrush="Black"
+        Icon="Resources/swords.png"
         ResizeMode="CanResizeWithGrip">
+
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button ToolTip="Open the GitHub site" Click="Github_Click">
+                <iconPacks:PackIconModern Width="22" Height="22" Kind="SocialGithubOctocat"></iconPacks:PackIconModern>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
     
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
