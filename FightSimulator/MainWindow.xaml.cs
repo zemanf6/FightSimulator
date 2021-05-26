@@ -4,7 +4,6 @@ using System.Xml;
 using FightSimulator.Classes;
 using System.Collections.Generic;
 using MahApps.Metro.Controls;
-using System.Diagnostics;
 
 namespace FightSimulator
 {
@@ -19,6 +18,12 @@ namespace FightSimulator
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Dice dice = new Dice();
+            if (string.IsNullOrWhiteSpace(Name1.Text))
+                Name1.Text = "Player1";
+
+            if (string.IsNullOrWhiteSpace(Name2.Text))
+                Name2.Text = "Player2";
+
             Warrior w1 = CreateWarrior(classSelector1.SelectedItem.ToString(), Name1.Text, (int)slider_health1.Value, (int)slider_attack1.Value, (int)slider_defense1.Value, (int)slider_ultimate1.Value, (Item)ItemSelector1.SelectedItem);
             Warrior w2 = CreateWarrior(classSelector2.SelectedItem.ToString(), Name2.Text, (int)slider_health2.Value, (int)slider_attack2.Value, (int)slider_defense2.Value, (int)slider_ultimate2.Value, (Item)ItemSelector2.SelectedItem);
 
@@ -162,10 +167,7 @@ namespace FightSimulator
                 CreateFile(saveFileDialog.FileName);
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            LoadFight();
-        }
+        private void Button_Click_1(object sender, RoutedEventArgs e) => LoadFight();
 
         private void FillItems()
         {
@@ -188,9 +190,6 @@ namespace FightSimulator
             ItemSelector2.SelectedIndex = 0;
         }
 
-        private void Github_Click(object sender, RoutedEventArgs e)
-        {
-            Utilities.Launch_URL("https://github.com/zemanf6/FightSimulator");
-        }
+        private void Github_Click(object sender, RoutedEventArgs e) => Utilities.Launch_URL("https://github.com/zemanf6/FightSimulator");
     }
 }

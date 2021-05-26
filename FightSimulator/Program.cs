@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace FightSimulator
 {
@@ -8,6 +9,7 @@ namespace FightSimulator
         public static void Main()
         {
             var app = new App();
+
             app.InitializeComponent();
             app.Run();
         }
