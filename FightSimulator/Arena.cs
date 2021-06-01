@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using FightSimulator.Classes;
 
 namespace FightSimulator
@@ -29,28 +25,28 @@ namespace FightSimulator
             Console.WriteLine($"Fight between {warrior1} and {warrior2}.\n");
 
             if (dice.Throw() <= dice.Sides / 2)
-            {
-                firstFighter = warrior2;
-                secondFighter = warrior1;
-            }
+                (firstFighter, secondFighter) = (secondFighter, firstFighter);
+
             Console.WriteLine($"{firstFighter} ambushes {secondFighter}!...\n");
             Thread.Sleep(1200);
 
             while (firstFighter.IsAlive() && secondFighter.IsAlive())
             {
-                firstFighter.AttackEnemy(secondFighter);
-                Draw();
-                WriteMessage(firstFighter.Message);
-                WriteMessage(secondFighter.Message);
+                FightCycle(firstFighter, secondFighter);
 
                 if (secondFighter.IsAlive())
                 {
-                    secondFighter.AttackEnemy(firstFighter);
-                    Draw();
-                    WriteMessage(secondFighter.Message);
-                    WriteMessage(firstFighter.Message);
+                    FightCycle(secondFighter, firstFighter);
                 }
             }
+        }
+
+        private void FightCycle(Warrior w1, Warrior w2)
+        {
+            w1.AttackEnemy(w2);
+            Draw();
+            WriteMessage(w1.Message);
+            WriteMessage(w2.Message);
         }
 
         private static void DrawFighter(Warrior f)

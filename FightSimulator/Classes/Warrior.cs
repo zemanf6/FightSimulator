@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Xml;
 
 namespace FightSimulator.Classes
 {
@@ -25,17 +23,14 @@ namespace FightSimulator.Classes
             Dice = dice;
         }
 
-        public override string ToString()
-        {
-            return $"{Name}";
-        }
+        public override string ToString() => $"{Name}";
 
         public bool IsAlive() => Health > 0;
 
         protected string GraphicPointer(int actual, int maximal)
         {
             string s = "";
-            int totalIndicators = 20;
+            const int totalIndicators = 20;
             double count = Math.Round((double)actual / maximal * totalIndicators);
 
             if ((count == 0) && IsAlive())
@@ -44,9 +39,7 @@ namespace FightSimulator.Classes
             for (int i = 0; i < count; i++)
                 s += "█";
 
-            s = s.PadRight(totalIndicators);
-
-            return s;
+            return s.PadRight(totalIndicators);
         }
 
         public string GraphicHealth() => GraphicPointer(Health, MaxHealth);

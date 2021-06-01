@@ -1,7 +1,4 @@
-﻿using System.IO;
-using System.Xml;
-
-namespace FightSimulator.Classes
+﻿namespace FightSimulator.Classes
 {
     class Wizard : Warrior
     {
